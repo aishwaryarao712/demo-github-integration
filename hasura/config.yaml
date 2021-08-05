@@ -1,6 +1,6 @@
 version: 3
-endpoint: https://next-mudfish-55.hasura.app
-admin_secret: dbtKIKiADj10AeNG76Ukv1YOMAHFlAxUBiUyPuK3syOVsD7b0enUr4vI9DiF53Mv
+endpoint: https://select-seasnail-10.hasura.app
+admin_secret: RwxCK5AH8LBisPuNmg7HMJdkPduvypaZXi0XSqNDn397mJcUcUcfCS7q5wM8cpDm
 metadata_directory: metadata
 actions:
   kind: synchronous
