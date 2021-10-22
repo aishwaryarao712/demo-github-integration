@@ -6,22 +6,23 @@ on:
     	- hasura # path to the Hasura project directory in the repo
     branches:
       - main
+
 jobs:
-  Explore-GitHub-Actions:
+  preview:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - name: Setup Node
-        uses: actions/setup-node@v2
-      - name: Debug
-        uses: hmarr/debug-action@v2
-      - name: Deploy Hasura Cloud preview app
-        - uses: hasura/hasura-cloud-preview-apps@v0.0.2
-          env:
-            CLOUD_DATA_GRAPHQL_ENDPOINT: 'http://tenant1.nginx.hasura.me/v1/graphql'
-            HASURA_CLOUD_PAT: ${{ secrets.HASURA_CLOUD_ACCESS_TOKEN }}
-            PR_NUMBER: ${{ github.event.number }}
-
+      - uses: hasura/hasura-cloud-preview-apps@v0.0.2
+        with:
+          name: "project-name-pr-${{github.event.number}}" # name of the preview app to created
+          hasuraProjectDirectoryPath: hasura # path to the Hasura project directory in the repo
+          hasuraEnv: | # env vars exposed to the Hasura instance
+           	HASURA_GRAPHQL_CORS_DOMAINS=http://my-site.com
+           	PG_DATABASE_URL=${{secrets.PG_STRING}}
+          postgresDBConfig: |
+            POSTGRES_SERVER_CONNECTION_URI=${{secrets.PG_STRING}}
+            PG_ENV_VARS_FOR_HASURA=PG_DB_URL_1,PG_DB_URL_2
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}} # ${{ secrets.GITHUB_TOKEN }} is provided by default by GitHub actions
+          HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}} # Hasura Cloud access token to contact Hasura Cloud APIs
+          CLOUD_DATA_GRAPHQL_ENDPOINT: 'http://tenant1.nginx.hasura.me/v1/graphql'
