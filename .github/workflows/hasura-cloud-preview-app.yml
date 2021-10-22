@@ -15,7 +15,6 @@ jobs:
         with:
           name: 'preview-app-${{github.event.number}}'
           hasuraProjectDirectoryPath: hasura
-          region: 'us-east-2'
           hasuraEnv: |
             HASURA_GRAPHQL_CORS_DOMAIN=*
             HASURA_GRAPHQL_ADMIN_SECRET=${{secrets.ADMIN_SECRET}}
