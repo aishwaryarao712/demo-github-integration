@@ -23,3 +23,4 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}}
           ACTIONS_RUNNER_DEBUG: true
+          HASURA_GRAPHQL_ADMIN_SECRET: EvWrgJdVwtzBf93zC0snXWytEdGQLVBK9RpVnwLeCIco7euydoZyxdxCmeyiLy72
