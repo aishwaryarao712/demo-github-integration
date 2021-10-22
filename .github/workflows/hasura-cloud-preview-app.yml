@@ -20,9 +20,6 @@ jobs:
           hasuraEnv: |
             HASURA_GRAPHQL_CORS_DOMAIN=*
             HASURA_GRAPHQL_ADMIN_SECRET=${{secrets.ADMIN_SECRET}}
-          postgresDBConfig: |
-            POSTGRES_SERVER_CONNECTION_URI=${{secrets.PG_STRING}}
-            PG_ENV_VARS_FOR_HASURA=${{secrets.PG_STRING}}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}}
