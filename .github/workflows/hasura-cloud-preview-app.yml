@@ -1,36 +1,25 @@
-name: 'preview-apps'
-on: # rebuild any PRs and main branch changes
+name: Preview Apps
+on:
   pull_request:
-  push:
     branches:
       - main
-
 jobs:
-  hasura-cloud-preview:
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Hasura Cloud Preview Apps
-        uses: hasura/hasura-cloud-preview-apps@v0.0.2
-        id: hasura_cloud_preview
-        with:
-          name: 'repo-name-${{github.env.GITHUB_HEAD_REF}}${{github.event.number}}'
-          hasuraProjectDirectoryPath: hasura
-          hasuraEnv: |
-            HASURA_GRAPHQL_CORS_DOMAIN=*
-            HASURA_GRAPHQL_ADMIN_SECRET=randomsecret
-            HASURA_GRAPHQL_DEV_MODE=true
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - name: Setup Node
+        uses: actions/setup-node@v2
+      - name: Debug
+        uses: hmarr/debug-action@v2
+      - name: Deploy Hasura Cloud preview app
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}}
-
-      - uses: hasura/comment-progress@v2.1.0
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          id: preview_app_comment
-          number: ${{github.event.number}}
-          repository: ${{env.GITHUB_REPOSITORY}}
-          message: |
-            Console URL available at ${{steps.hasura_cloud_preview.outputs.consoleURL}}
-            GraphQL Endpoint available at ${{steps.hasura_cloud_preview.outputs.graphQLEndpoint}}
+          CLOUD_DATA_GRAPHQL_ENDPOINT: 'http://tenant1.nginx.hasura.me/v1/graphql'
+          HASURA_CLOUD_PAT: ${{ secrets.HASURA_CLOUD_ACCESS_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
+          HASURA_PROJECT_DIR_PATH: 'hasura'
+        run: |
+          ${{ github.workspace }}/scripts/deploy-preview-app.sh
+      - run: echo "🍏 This job's status is ${{ job.status }}."
