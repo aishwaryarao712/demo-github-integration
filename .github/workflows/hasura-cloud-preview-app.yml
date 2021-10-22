@@ -1,12 +1,16 @@
-name: Preview Apps
+name: 'hasura-cloud-preview'
 on:
   pull_request:
+    types: [open, reopen, synchronize]
+    paths:
+    	- hasura # path to the Hasura project directory in the repo
     branches:
       - main
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Check out repository code
         uses: actions/checkout@v2
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
@@ -15,11 +19,9 @@ jobs:
       - name: Debug
         uses: hmarr/debug-action@v2
       - name: Deploy Hasura Cloud preview app
-        env:
-          CLOUD_DATA_GRAPHQL_ENDPOINT: 'http://tenant1.nginx.hasura.me/v1/graphql'
-          HASURA_CLOUD_PAT: ${{ secrets.HASURA_CLOUD_ACCESS_TOKEN }}
-          PR_NUMBER: ${{ github.event.number }}
-          HASURA_PROJECT_DIR_PATH: 'hasura'
-        run: |
-          ${{ github.workspace }}/scripts/deploy-preview-app.sh
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+        - uses: hasura/hasura-cloud-preview-apps@v0.0.2
+          env:
+            CLOUD_DATA_GRAPHQL_ENDPOINT: 'http://tenant1.nginx.hasura.me/v1/graphql'
+            HASURA_CLOUD_PAT: ${{ secrets.HASURA_CLOUD_ACCESS_TOKEN }}
+            PR_NUMBER: ${{ github.event.number }}
+
