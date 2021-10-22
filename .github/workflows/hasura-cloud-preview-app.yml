@@ -14,7 +14,6 @@ jobs:
       - uses: hasura/hasura-cloud-preview-apps@v0.0.2
         with:
           name: 'preview-app-${{github.event.number}}'
-          hasuraCloudGraphQLEndpoint: 'https://perfect-cobra-37.hasura.app/v1/graphql'
           hasuraProjectDirectoryPath: hasura
           region: 'us-east-2'
           hasuraEnv: |
