@@ -16,6 +16,8 @@ jobs:
           hasuraProjectDirectoryPath: hasura # path to the Hasura project directory in the repo
           hasuraEnv: | # env vars exposed to the Hasura instance
             PG_DATABASE_URL=${{secrets.PG_STRING}}
+            HASURA_GRAPHQL_ADMIN_SECRET=EvWrgJdVwtzBf93zC0snXWytEdGQLVBK9RpVnwLeCIco7euydoZyxdxCmeyiLy72
+            HASURA_GRAPHQL_CORS_DOMAIN=*
           postgresDBConfig: |
             POSTGRES_SERVER_CONNECTION_URI=${{secrets.PG_STRING}}
             PG_ENV_VARS_FOR_HASURA=PG_DB_URL_1,PG_DB_URL_2
