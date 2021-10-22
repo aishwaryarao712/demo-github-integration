@@ -16,10 +16,10 @@ jobs:
           name: 'preview-app-${{github.event.number}}'
           hasuraCloudGraphQLEndpoint: 'https://perfect-cobra-37.hasura.app/v1/graphql'
           hasuraProjectDirectoryPath: hasura
-          region: 'ap-south-1'
+          region: 'us-east-2'
           hasuraEnv: |
             HASURA_GRAPHQL_CORS_DOMAIN=*
-            HASURA_GRAPHQL_ADMIN_SECRET=EvWrgJdVwtzBf93zC0snXWytEdGQLVBK9RpVnwLeCIco7euydoZyxdxCmeyiLy72
+            HASURA_GRAPHQL_ADMIN_SECRET=${{secrets.ADMIN_SECRET}}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}}
