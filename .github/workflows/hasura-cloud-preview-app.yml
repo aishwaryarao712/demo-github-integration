@@ -1,27 +1,30 @@
-name: 'hasura-cloud-preview'
+name: 'build-test'
 on:
   pull_request:
     types: [open, reopen, synchronize]
+  push:
     branches:
       - main
 
 jobs:
-  preview:
+  preview: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Debug
+        uses: hmarr/debug-action@v2
       - uses: hasura/hasura-cloud-preview-apps@v0.0.2
         with:
-          name: 'project-name-pr-${{github.event.number}}' # name of the preview app to created
-          hasuraProjectDirectoryPath: hasura # path to the Hasura project directory in the repo
-          hasuraEnv: | # env vars exposed to the Hasura instance
-            PG_DATABASE_URL=${{secrets.PG_STRING}}
-            HASURA_GRAPHQL_ADMIN_SECRET=EvWrgJdVwtzBf93zC0snXWytEdGQLVBK9RpVnwLeCIco7euydoZyxdxCmeyiLy72
+          name: 'preview-app-${{github.event.number}}'
+          hasuraCloudGraphQLEndpoint: 'https://data.pro.arusah.com/v1/graphql'
+          hasuraProjectDirectoryPath: hasura
+          region: 'ap-south-1'
+          hasuraEnv: |
             HASURA_GRAPHQL_CORS_DOMAIN=*
           postgresDBConfig: |
             POSTGRES_SERVER_CONNECTION_URI=${{secrets.PG_STRING}}
-            PG_ENV_VARS_FOR_HASURA=PG_DB_URL_1,PG_DB_URL_2
+            PG_ENV_VARS_FOR_HASURA=PG_DATABASE_URL
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}} # ${{ secrets.GITHUB_TOKEN }} is provided by default by GitHub actions
-          HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}} # Hasura Cloud access token to contact Hasura Cloud APIs
-          CLOUD_DATA_GRAPHQL_ENDPOINT: 'https://perfect-cobra-37.hasura.app/v1/graphql'
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}}
+          ACTIONS_RUNNER_DEBUG: true
