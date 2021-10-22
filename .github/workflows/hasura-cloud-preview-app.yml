@@ -18,7 +18,9 @@ jobs:
           name: 'repo-name-${{github.env.GITHUB_HEAD_REF}}${{github.event.number}}'
           hasuraProjectDirectoryPath: hasura
           hasuraEnv: |
-            ENV_VAR_1=value_1
+            HASURA_GRAPHQL_CORS_DOMAIN=*
+            HASURA_GRAPHQL_ADMIN_SECRET=randomsecret
+            HASURA_GRAPHQL_DEV_MODE=true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}}
