@@ -16,7 +16,7 @@ jobs:
           name: 'preview-app-${{github.event.number}}'
           hasuraCloudGraphQLEndpoint: 'https://d8a5-49-37-157-35.ngrok.io/v1/graphql'
           hasuraProjectDirectoryPath: hasura
-          region: 'us-west-1'
+          region: 'us-east-2'
           hasuraEnv: |
             HASURA_GRAPHQL_CORS_DOMAIN=*
             HASURA_GRAPHQL_ADMIN_SECRET=${{secrets.ADMIN_SECRET}}
