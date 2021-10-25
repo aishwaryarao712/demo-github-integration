@@ -14,7 +14,7 @@ jobs:
       - uses: hasura/hasura-cloud-preview-apps@support-preview-app-scheduling
         with:
           name: 'tenant2'
-          hasuraCloudGraphQLEndpoint: 'https://36a8-49-37-157-35.ngrok.io/v1/graphql'
+          hasuraCloudGraphQLEndpoint: 'https://d182-49-37-157-35.ngrok.io/v1/graphql'
           hasuraProjectDirectoryPath: hasura
           region: 'us-east-2'
           hasuraEnv: |

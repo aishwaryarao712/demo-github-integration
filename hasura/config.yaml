@@ -1,6 +1,6 @@
 version: 3
-endpoint: https://next-mudfish-55.hasura.app
-admin_secret: dbtKIKiADj10AeNG76Ukv1YOMAHFlAxUBiUyPuK3syOVsD7b0enUr4vI9DiF53Mv
+endpoint: https://perfect-cobra-37.hasura.app
+admin_secret: testtoken
 metadata_directory: metadata
 actions:
   kind: synchronous
