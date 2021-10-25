@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: hasura/hasura-cloud-preview-apps@support-preview-app-scheduling
         with:
-          name: 'preview-app-${{github.event.number}}'
+          name: 'tenant2'
           hasuraCloudGraphQLEndpoint: 'https://d8a5-49-37-157-35.ngrok.io/v1/graphql'
           hasuraProjectDirectoryPath: hasura
           region: 'us-east-2'
