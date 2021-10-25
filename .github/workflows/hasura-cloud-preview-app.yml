@@ -14,6 +14,7 @@ jobs:
       - uses: hasura/hasura-cloud-preview-apps@support-preview-app-scheduling
         with:
           name: 'preview-app-${{github.event.number}}'
+          hasuraCloudGraphQLEndpoint: 'https://d8a5-49-37-157-35.ngrok.io/v1/graphql'
           hasuraProjectDirectoryPath: hasura
           region: 'us-west-1'
           hasuraEnv: |
