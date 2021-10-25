@@ -1,0 +1,29 @@
+name: 'build-test'
+on:
+  pull_request:
+    types: [open, reopen, synchronize]
+  push:
+    branches:
+      - main
+
+jobs:
+  preview: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hasura/hasura-cloud-preview-apps@support-preview-app-scheduling
+        with:
+          name: 'tenant2'
+          hasuraCloudGraphQLEndpoint: 'https://d182-49-37-157-35.ngrok.io/v1/graphql'
+          hasuraProjectDirectoryPath: hasura
+          region: 'us-east-2'
+          hasuraEnv: |
+            HASURA_GRAPHQL_CORS_DOMAIN=*
+            HASURA_GRAPHQL_ADMIN_SECRET=${{secrets.ADMIN_SECRET}}
+            PG_DATABASE_URL=${{secrets.PG_STRING}}
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}}
+          HASURA_CLOUD_PAT: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}}
+          ACTIONS_RUNNER_DEBUG: true
+          HASURA_GRAPHQL_ADMIN_SECRET: ${{secrets.ADMIN_SECRET}}
